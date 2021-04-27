@@ -40,6 +40,8 @@ case $2 in
             python ${@:3};;
     * )
         docker run \
+            -v $PWD:/tmp/working \
+            -w=/tmp/working \
             --rm \
             -it \
             --name calcpi \
