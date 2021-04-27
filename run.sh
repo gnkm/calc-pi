@@ -38,6 +38,15 @@ case $2 in
             --name calcpi \
             ${IMAGE_ID} \
             python ${@:3};;
+    'lint' )
+        docker run \
+            -v $PWD:/tmp/working \
+            -w=/tmp/working \
+            --rm \
+            -it \
+            --name calcpi \
+            ${IMAGE_ID} \
+            pylint ${@:3};;
     'flake' )
         docker run \
             -v $PWD:/tmp/working \
