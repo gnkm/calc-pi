@@ -4,6 +4,15 @@ from typing import Any
 
 
 def round(num: float, digits: int) -> float:
+    """Round the number to the digits decimal place.
+
+    Args:
+        num (float): rounded number
+        digits (int): digits
+
+    Returns:
+        float: rounded number
+    """
     minus_digits: float = - digits
     _digits: float = 10 ** minus_digits
     str_digits: str = str(_digits)
