@@ -47,6 +47,15 @@ case $2 in
             --name calcpi \
             ${IMAGE_ID} \
             flake8 ${@:3};;
+    'mypy' )
+        docker run \
+            -v $PWD:/tmp/working \
+            -w=/tmp/working \
+            --rm \
+            -it \
+            --name calcpi \
+            ${IMAGE_ID} \
+            mypy ${@:3};;
     'test' )
         docker run \
             -v $PWD:/tmp/working \
