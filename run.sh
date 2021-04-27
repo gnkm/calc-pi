@@ -38,6 +38,15 @@ case $2 in
             --name calcpi \
             ${IMAGE_ID} \
             python ${@:3};;
+    'test' )
+        docker run \
+            -v $PWD:/tmp/working \
+            -w=/tmp/working \
+            --rm \
+            -it \
+            --name calcpi \
+            ${IMAGE_ID} \
+            pytest ${@:3};;
     * )
         docker run \
             -v $PWD:/tmp/working \
