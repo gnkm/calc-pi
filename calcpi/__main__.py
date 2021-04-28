@@ -14,7 +14,7 @@ ALGORITHMS: List[str] = [
 def main():
     args: argparse.Namespace = _get_args()
     if args.algorithm == 'simple':
-        pi: float = simple.pi()
+        pi: float = simple.pi(args.accuracy)
 
     utils.display(pi)
 
@@ -28,6 +28,8 @@ def _get_args():
     )
     parser.add_argument(
         '--accuracy',
+        default=10,
+        type=int,
         help='accuracy',
     )
     parser.add_argument(
