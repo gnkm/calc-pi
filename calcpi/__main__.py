@@ -28,7 +28,7 @@ def _get_args():
     )
     parser.add_argument(
         '--accuracy',
-        help='digits',
+        help='accuracy',
     )
     parser.add_argument(
         '-l',
