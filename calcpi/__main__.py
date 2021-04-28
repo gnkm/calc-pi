@@ -2,12 +2,14 @@ import argparse
 import sys
 from typing import List
 
+from calcpi import gauss_legendre
 from calcpi import simple
 from calcpi import utils
 
 
 ALGORITHMS: List[str] = [
-    'simple'
+    'simple',
+    'gauss_legendre',
 ]
 
 
@@ -15,6 +17,8 @@ def main():
     args: argparse.Namespace = _get_args()
     if args.algorithm == 'simple':
         pi: float = simple.pi(args.accuracy)
+    elif args.algorithm == 'gauss_legendre':
+        pi: float = gauss_legendre.pi(args.accuracy)
 
     utils.display(pi)
 
