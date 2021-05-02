@@ -2,6 +2,8 @@ import argparse
 import sys
 from typing import List
 
+import mpmath
+
 from calcpi import gauss_legendre
 from calcpi import regular_polygon
 from calcpi import utils
@@ -18,7 +20,9 @@ ALGORITHMS: List[str] = [
 def main():
     args: argparse.Namespace = _get_args()
     if args.algorithm == 'value':
-        pi: float = value.pi(args.accuracy)
+        pi: mpmath.mpf = value.pi(args.accuracy)
+        mpmath.nprint(pi, args.accuracy)
+        sys.exit()
     elif args.algorithm == 'gauss_legendre':
         pi: float = gauss_legendre.pi(args.accuracy)
     elif args.algorithm == 'polygon':

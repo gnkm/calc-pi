@@ -1,7 +1,6 @@
-import math
-
-import calcpi.utils as utils
+import mpmath
 
 
 def pi(accuracy: int) -> float:
-    return utils.round(math.pi, accuracy)
+    mpmath.mp.dps = accuracy
+    return +mpmath.pi
