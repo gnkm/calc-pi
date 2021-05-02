@@ -1,8 +1,8 @@
-from calcpi import simple
+from calcpi import value
 
 
 class TestSimplePi:
     def test_pi_round2(self):
-        actual = simple.pi(2)
+        actual = value.pi(2)
         expected = 3.14
         assert actual == expected

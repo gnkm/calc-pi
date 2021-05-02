@@ -4,12 +4,12 @@ from typing import List
 
 from calcpi import gauss_legendre
 from calcpi import regular_polygon
-from calcpi import simple
 from calcpi import utils
+from calcpi import value
 
 
 ALGORITHMS: List[str] = [
-    'simple',
+    'value',
     'gauss_legendre',
     'polygon',
 ]
@@ -17,8 +17,8 @@ ALGORITHMS: List[str] = [
 
 def main():
     args: argparse.Namespace = _get_args()
-    if args.algorithm == 'simple':
-        pi: float = simple.pi(args.accuracy)
+    if args.algorithm == 'value':
+        pi: float = value.pi(args.accuracy)
     elif args.algorithm == 'gauss_legendre':
         pi: float = gauss_legendre.pi(args.accuracy)
     elif args.algorithm == 'polygon':
