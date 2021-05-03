@@ -7,11 +7,11 @@ import mpmath
 from calcpi import gauss_legendre
 from calcpi import regular_polygon
 from calcpi import utils
-from calcpi import value
+from calcpi import value_mpmath
 
 
 ALGORITHMS: List[str] = [
-    'value',
+    'value_mpmath',
     'gauss_legendre',
     'polygon',
 ]
@@ -19,8 +19,8 @@ ALGORITHMS: List[str] = [
 
 def main():
     args: argparse.Namespace = _get_args()
-    if args.algorithm == 'value':
-        pi: mpmath.mpf = value.pi(args.accuracy)
+    if args.algorithm == 'value_mpmath':
+        pi: mpmath.mpf = value_mpmath.pi(args.accuracy)
         mpmath.nprint(pi, args.accuracy)
         sys.exit()
     elif args.algorithm == 'gauss_legendre':
