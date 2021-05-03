@@ -6,7 +6,7 @@ import mpmath
 
 from calcpi import gauss_legendre
 from calcpi import regular_polygon
-from calcpi import utils
+from calcpi.utils import display
 from calcpi import value_mpmath
 
 
@@ -28,7 +28,7 @@ def main():
     elif args.algorithm == 'polygon':
         pi: float = regular_polygon.pi(args.accuracy)
 
-    utils.display(pi)
+    display(pi)
 
 
 def _get_args():
