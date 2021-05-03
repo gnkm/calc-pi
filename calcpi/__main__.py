@@ -7,11 +7,13 @@ import mpmath
 from calcpi import gauss_legendre
 from calcpi import regular_polygon
 from calcpi.utils import display
+from calcpi import value_decimal
 from calcpi import value_mpmath
 
 
 ALGORITHMS: List[str] = [
     'value_mpmath',
+    'value_decimal',
     'gauss_legendre',
     'polygon',
 ]
@@ -23,6 +25,8 @@ def main():
         pi: mpmath.mpf = value_mpmath.pi(args.accuracy)
         mpmath.nprint(pi, args.accuracy)
         sys.exit()
+    elif args.algorithm == 'value_decimal':
+        pi = value_decimal.pi(args.accuracy)
     elif args.algorithm == 'gauss_legendre':
         pi: float = gauss_legendre.pi(args.accuracy)
     elif args.algorithm == 'polygon':
