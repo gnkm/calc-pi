@@ -28,7 +28,9 @@ def main():
     elif args.algorithm == 'value_decimal':
         pi = value_decimal.pi(args.accuracy)
     elif args.algorithm == 'gauss_legendre':
-        pi: float = gauss_legendre.pi(args.accuracy)
+        pi: mpmath.mpf = gauss_legendre.pi(args.accuracy)
+        mpmath.nprint(pi, args.accuracy)
+        sys.exit()
     elif args.algorithm == 'polygon':
         pi: float = regular_polygon.pi(args.accuracy)
 
