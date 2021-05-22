@@ -23,18 +23,14 @@ def main():
     args: argparse.Namespace = _get_args()
     if args.algorithm == 'value_mpmath':
         pi: mpmath.mpf = value_mpmath.pi(args.accuracy)
-        mpmath.nprint(pi, args.accuracy)
-        sys.exit()
     elif args.algorithm == 'value_decimal':
         pi = value_decimal.pi(args.accuracy)
     elif args.algorithm == 'gauss_legendre':
         pi: mpmath.mpf = gauss_legendre.pi(args.accuracy)
-        mpmath.nprint(pi, args.accuracy)
-        sys.exit()
     elif args.algorithm == 'polygon':
-        pi: float = regular_polygon.pi(args.accuracy)
+        pi: mpmath.mpf = regular_polygon.pi(args.accuracy)
 
-    display(pi)
+    mpmath.nprint(pi, args.accuracy)
 
 
 def _get_args():
