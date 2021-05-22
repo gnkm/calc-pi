@@ -56,7 +56,7 @@ def _get_args():
         parser.print_help()
         sys.exit()
     elif sys.argv[1] in ['-l', '--list']:
-        utils.display(ALGORITHMS)
+        display(ALGORITHMS)
         sys.exit()
 
     args = parser.parse_args()
