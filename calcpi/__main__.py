@@ -1,12 +1,12 @@
 import argparse
 import sys
-from typing import List
+from typing import Dict, List
 
 import mpmath
 
 from calcpi import gauss_legendre
 from calcpi import regular_polygon
-from calcpi.utils import display
+import calcpi.utils as utils
 from calcpi import value_decimal
 from calcpi import value_mpmath
 
@@ -30,7 +30,8 @@ def main():
     elif args.algorithm == 'polygon':
         pi: mpmath.mpf = regular_polygon.pi(args.accuracy)
 
-    mpmath.nprint(pi, args.accuracy)
+    formated_pi: str = utils.format_pi(pi, args.accuracy, args.separated)
+    utils.display(formated_pi)
 
 
 def _get_args():
@@ -51,12 +52,23 @@ def _get_args():
         '--list',
         help='show algorithms list',
     )
-
+    parser.add_argument(
+        '-s',
+        '--separated',
+        action='store_true',
+        help='show separated number',
+    )
+    parser.add_argument(
+        '--grouped_digit',
+        default=10,
+        type=int,
+        help='number of digits to be summarized when displaying',
+    )
     if len(sys.argv) == 1:
         parser.print_help()
         sys.exit()
     elif sys.argv[1] in ['-l', '--list']:
-        display(ALGORITHMS)
+        utils.display(ALGORITHMS)
         sys.exit()
 
     args = parser.parse_args()
