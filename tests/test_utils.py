@@ -9,11 +9,6 @@ from calcpi import utils
 
 
 class TestUtils:
-    def test_one(self):
-        actual = utils.round(1.234, 1)
-        expected = 1.2
-        assert actual == expected
-
 
     def test_format_not_separated(self):
         mp.dps = 30
@@ -23,7 +18,6 @@ class TestUtils:
         0.1234567890123456789\
         ''').strip(' ')
         assert actual == expected
-
 
     def test_format_separated(self):
         mp.dps = 30
