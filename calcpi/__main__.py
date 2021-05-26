@@ -4,12 +4,12 @@ from typing import Dict, List
 
 import mpmath
 
-from calcpi import gauss_legendre
-from calcpi import regular_polygon
-import calcpi.utils as utils
-from calcpi import value_decimal
-from calcpi import actual
-
+from calcpi import (
+    actual,
+    gauss_legendre,
+    regular_polygon,
+    utils,
+)
 
 ALGORITHMS: List[str] = [
     'actual',
