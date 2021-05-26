@@ -1,6 +1,6 @@
 import argparse
 import sys
-from typing import Dict, List
+from typing import List
 
 import mpmath
 
