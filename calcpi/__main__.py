@@ -8,12 +8,11 @@ from calcpi import gauss_legendre
 from calcpi import regular_polygon
 import calcpi.utils as utils
 from calcpi import value_decimal
-from calcpi import value_mpmath
+from calcpi import actual
 
 
 ALGORITHMS: List[str] = [
-    'value_mpmath',
-    'value_decimal',
+    'actual',
     'gauss_legendre',
     'polygon',
 ]
@@ -21,10 +20,8 @@ ALGORITHMS: List[str] = [
 
 def main():
     args: argparse.Namespace = _get_args()
-    if args.algorithm == 'value_mpmath':
-        pi: mpmath.mpf = value_mpmath.pi(args.accuracy)
-    elif args.algorithm == 'value_decimal':
-        pi = value_decimal.pi(args.accuracy)
+    if args.algorithm == 'actual':
+        pi: mpmath.mpf = actual.pi(args.accuracy)
     elif args.algorithm == 'gauss_legendre':
         pi: mpmath.mpf = gauss_legendre.pi(args.accuracy)
     elif args.algorithm == 'polygon':
