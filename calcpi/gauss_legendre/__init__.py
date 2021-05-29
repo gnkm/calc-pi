@@ -9,7 +9,7 @@ from mpmath import (
     mpf,
     sqrt,
 )
-from typing import Tuple
+from typing import Any, Tuple
 
 # initial values
 INIT_A: float = 1
@@ -31,7 +31,7 @@ def pi(accuracy: int) -> float:
     return (a + b) ** 2 / (4 * t)
 
 
-def _variables(a_n: mpf, b_n: mpf, t_n: mpf, p_n: mpf, iter_num: int) -> Tuple[mpf]:
+def _variables(a_n: mpf, b_n: mpf, t_n: mpf, p_n: mpf, iter_num: int) -> Tuple[Any, Any, Any, Any, int]:
     if iter_num <= 0:
         return a_n, b_n, t_n, p_n, iter_num
 
