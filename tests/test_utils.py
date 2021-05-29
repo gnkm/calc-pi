@@ -3,7 +3,7 @@ import textwrap
 from mpmath import (
     mp,
     mpf,
- )
+)
 
 from calcpi import utils
 
