@@ -1,6 +1,6 @@
 # calc-pi
 
-![Test, Lint](https://github.com/gnkm/calc-pi/workflows/Test,%20Lint/badge.svg)
+![Test, Lint](https://github.com/gnkm/calc-pi/actions/workflows/ci.yml/badge.svg)
 
 Calculate Pi with various algorithms.
 
