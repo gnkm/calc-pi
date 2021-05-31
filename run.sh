@@ -10,9 +10,9 @@ ____USAGE
 
 # main script starts here
 
-MODULE='calcpi'
-IMAGE="gnkm/${MODULE}"
-TAG=$(git describe --tags --always --dirty)
+readonly MODULE='calcpi'
+readonly IMAGE="gnkm/${MODULE}"
+readonly TAG=$(git describe --tags --always --dirty)
 
 # build
 case $1 in
