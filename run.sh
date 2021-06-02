@@ -34,6 +34,18 @@ _python() {
     python ${@:2}
 }
 
+_pylint() {
+  local IMAGE_ID=$1
+  docker run \
+    -v $PWD:/tmp/working \
+    -w=/tmp/working \
+    --rm \
+    -it \
+    --name calcpi \
+    ${IMAGE_ID} \
+    pylint ${@:2}
+}
+
 # build
 case $1 in
   'build' )
@@ -48,15 +60,9 @@ case $2 in
   'py' )
     _python ${IMAGE_ID} ${@:3}
     exit 0;;
-    'lint' )
-        docker run \
-            -v $PWD:/tmp/working \
-            -w=/tmp/working \
-            --rm \
-            -it \
-            --name calcpi \
-            ${IMAGE_ID} \
-            pylint ${@:3};;
+  'lint' )
+    _pylint  ${IMAGE_ID} ${@:3}
+    exit 0;;
     'flake' )
         docker run \
             -v $PWD:/tmp/working \
