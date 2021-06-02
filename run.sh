@@ -22,6 +22,18 @@ build() {
     .
 }
 
+_python() {
+  local IMAGE_ID=$1
+  docker run \
+    -v $PWD:/tmp/working \
+    -w=/tmp/working \
+    --rm \
+    -it \
+    --name calcpi \
+    ${IMAGE_ID} \
+    python ${@:2}
+}
+
 # build
 case $1 in
   'build' )
@@ -33,15 +45,9 @@ esac
 IMAGE_ID=$1
 
 case $2 in
-    'py' )
-        docker run \
-            -v $PWD:/tmp/working \
-            -w=/tmp/working \
-            --rm \
-            -it \
-            --name calcpi \
-            ${IMAGE_ID} \
-            python ${@:3};;
+  'py' )
+    _python ${IMAGE_ID} ${@:3}
+    exit 0;;
     'lint' )
         docker run \
             -v $PWD:/tmp/working \
