@@ -82,6 +82,18 @@ _pytest() {
     pytest ${@:2}
 }
 
+_unix_command() {
+  local IMAGE_ID=$1
+  docker run \
+    -v $PWD:/tmp/working \
+    -w=/tmp/working \
+    --rm \
+    -it \
+    --name calcpi \
+    ${IMAGE_ID} \
+    ${@:2}
+}
+
 # build
 case $1 in
   'build' )
@@ -108,7 +120,7 @@ case $2 in
   'test' )
     _pytest  ${IMAGE_ID} ${@:3}
     exit 0;;
-    * )
+  * )
         docker run \
             -v $PWD:/tmp/working \
             -w=/tmp/working \
