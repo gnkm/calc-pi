@@ -46,6 +46,18 @@ _pylint() {
     pylint ${@:2}
 }
 
+_flake8() {
+  local IMAGE_ID=$1
+  docker run \
+    -v $PWD:/tmp/working \
+    -w=/tmp/working \
+    --rm \
+    -it \
+    --name calcpi \
+    ${IMAGE_ID} \
+    flake8 ${@:2}
+}
+
 # build
 case $1 in
   'build' )
@@ -63,15 +75,9 @@ case $2 in
   'lint' )
     _pylint  ${IMAGE_ID} ${@:3}
     exit 0;;
-    'flake' )
-        docker run \
-            -v $PWD:/tmp/working \
-            -w=/tmp/working \
-            --rm \
-            -it \
-            --name calcpi \
-            ${IMAGE_ID} \
-            flake8 ${@:3};;
+  'flake' )
+    _flake8  ${IMAGE_ID} ${@:3}
+    exit 0;;
     'mypy' )
         docker run \
             -v $PWD:/tmp/working \
