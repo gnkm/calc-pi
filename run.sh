@@ -16,18 +16,6 @@ ____USAGE
 
 # main script starts here
 
-readonly MODULE='calcpi'
-readonly IMAGE="gnkm/${MODULE}"
-readonly TAG=$(git describe --tags --always --dirty)
-
-build() {
-  docker build \
-    -f docker/Dockerfile \
-    --no-cache \
-    -t "${IMAGE}:${TAG}" \
-    .
-}
-
 _python() {
   local IMAGE_ID=$1
   docker run \
@@ -99,13 +87,6 @@ _unix_command() {
     ${IMAGE_ID} \
     ${@:2}
 }
-
-# build
-case $1 in
-  'build' )
-    build
-    exit 0;;
-esac
 
 # alias of `docker run`
 if [ $# -lt 2 ]; then
