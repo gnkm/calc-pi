@@ -9,7 +9,7 @@ Calculate Pi with various algorithms.
 Make docker image.
 
 ```
-bash run.sh build
+bash build.sh -f docker/Dockerfile
 ```
 
 Check docker image ID.

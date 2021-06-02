@@ -3,84 +3,115 @@
 # print the usage and exit
 print_usage_and_exit () {
 	cat <<____USAGE 1>&2
-Usage   : ${0##*/} <var1> <var2> ...
+Usage   : ${0##*/} <image_id> {build,py,lint,flake,mypy,test,or any other command} ...
+
+Execute docker run command.
+
+positional parameters:
+  image_id: Docker image id
+  {build, py, lint, flake, mypy, test, or any other command}: command
 ____USAGE
 	exit 1
 }
 
 # main script starts here
 
-MODULE='calcpi'
-IMAGE="gnkm/${MODULE}"
-TAG=$(git describe --tags --always --dirty)
+_python() {
+  local IMAGE_ID=$1
+  docker run \
+    -v $PWD:/tmp/working \
+    -w=/tmp/working \
+    --rm \
+    -it \
+    --name calcpi \
+    ${IMAGE_ID} \
+    python ${@:2}
+}
 
-# build
-case $1 in
-    'build' )
-        docker build \
-            -f docker/Dockerfile \
-            --no-cache \
-            -t "${IMAGE}:${TAG}" \
-            .
-        exit 0;;
-esac
+_pylint() {
+  local IMAGE_ID=$1
+  docker run \
+    -v $PWD:/tmp/working \
+    -w=/tmp/working \
+    --rm \
+    -it \
+    --name calcpi \
+    ${IMAGE_ID} \
+    pylint ${@:2}
+}
+
+_flake8() {
+  local IMAGE_ID=$1
+  docker run \
+    -v $PWD:/tmp/working \
+    -w=/tmp/working \
+    --rm \
+    -it \
+    --name calcpi \
+    ${IMAGE_ID} \
+    flake8 ${@:2}
+}
+
+_mypy() {
+  local IMAGE_ID=$1
+  docker run \
+    -v $PWD:/tmp/working \
+    -w=/tmp/working \
+    --rm \
+    -it \
+    --name calcpi \
+    ${IMAGE_ID} \
+    mypy ${@:2}
+}
+
+_pytest() {
+  local IMAGE_ID=$1
+  docker run \
+    -v $PWD:/tmp/working \
+    -w=/tmp/working \
+    --rm \
+    -it \
+    --name calcpi \
+    ${IMAGE_ID} \
+    pytest ${@:2}
+}
+
+_unix_command() {
+  local IMAGE_ID=$1
+  docker run \
+    -v $PWD:/tmp/working \
+    -w=/tmp/working \
+    --rm \
+    -it \
+    --name calcpi \
+    ${IMAGE_ID} \
+    ${@:2}
+}
 
 # alias of `docker run`
+if [ $# -lt 2 ]; then
+  print_usage_and_exit
+fi
+
 IMAGE_ID=$1
 
 case $2 in
-    'py' )
-        docker run \
-            -v $PWD:/tmp/working \
-            -w=/tmp/working \
-            --rm \
-            -it \
-            --name calcpi \
-            ${IMAGE_ID} \
-            python ${@:3};;
-    'lint' )
-        docker run \
-            -v $PWD:/tmp/working \
-            -w=/tmp/working \
-            --rm \
-            -it \
-            --name calcpi \
-            ${IMAGE_ID} \
-            pylint ${@:3};;
-    'flake' )
-        docker run \
-            -v $PWD:/tmp/working \
-            -w=/tmp/working \
-            --rm \
-            -it \
-            --name calcpi \
-            ${IMAGE_ID} \
-            flake8 ${@:3};;
-    'mypy' )
-        docker run \
-            -v $PWD:/tmp/working \
-            -w=/tmp/working \
-            --rm \
-            -it \
-            --name calcpi \
-            ${IMAGE_ID} \
-            mypy ${@:3};;
-    'test' )
-        docker run \
-            -v $PWD:/tmp/working \
-            -w=/tmp/working \
-            --rm \
-            -it \
-            --name calcpi \
-            ${IMAGE_ID} \
-            pytest ${@:3};;
-    * )
-        docker run \
-            -v $PWD:/tmp/working \
-            -w=/tmp/working \
-            --rm \
-            -it \
-            --name calcpi \
-            ${IMAGE_ID} \
-            ${@:2};;
+  'py' )
+    _python ${IMAGE_ID} ${@:3}
+    exit 0;;
+  'lint' )
+    _pylint  ${IMAGE_ID} ${@:3}
+    exit 0;;
+  'flake' )
+    _flake8  ${IMAGE_ID} ${@:3}
+    exit 0;;
+  'mypy' )
+    _mypy  ${IMAGE_ID} ${@:3}
+    exit 0;;
+  'test' )
+    _pytest  ${IMAGE_ID} ${@:3}
+    exit 0;;
+  * )
+    _unix_command ${IMAGE_ID} ${@:2}
+    exit 0;;
 esac
