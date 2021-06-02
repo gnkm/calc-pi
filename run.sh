@@ -3,7 +3,13 @@
 # print the usage and exit
 print_usage_and_exit () {
 	cat <<____USAGE 1>&2
-Usage   : ${0##*/} <var1> <var2> ...
+Usage   : ${0##*/} <image_id> {build,py,lint,flake,mypy,test,or any other command} ...
+
+Execute docker run command.
+
+positional parameters:
+  image_id: Docker image id
+  {build, py, lint, flake, mypy, test, or any other command}: command
 ____USAGE
 	exit 1
 }
@@ -102,6 +108,10 @@ case $1 in
 esac
 
 # alias of `docker run`
+if [ $# -lt 2 ]; then
+  print_usage_and_exit
+fi
+
 IMAGE_ID=$1
 
 case $2 in
@@ -121,12 +131,6 @@ case $2 in
     _pytest  ${IMAGE_ID} ${@:3}
     exit 0;;
   * )
-        docker run \
-            -v $PWD:/tmp/working \
-            -w=/tmp/working \
-            --rm \
-            -it \
-            --name calcpi \
-            ${IMAGE_ID} \
-            ${@:2};;
+    _unix_command ${IMAGE_ID} ${@:2}
+    exit 0;;
 esac
