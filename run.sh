@@ -14,15 +14,19 @@ readonly MODULE='calcpi'
 readonly IMAGE="gnkm/${MODULE}"
 readonly TAG=$(git describe --tags --always --dirty)
 
+build() {
+  docker build \
+    -f docker/Dockerfile \
+    --no-cache \
+    -t "${IMAGE}:${TAG}" \
+    .
+}
+
 # build
 case $1 in
-    'build' )
-        docker build \
-            -f docker/Dockerfile \
-            --no-cache \
-            -t "${IMAGE}:${TAG}" \
-            .
-        exit 0;;
+  'build' )
+    build
+    exit 0;;
 esac
 
 # alias of `docker run`
