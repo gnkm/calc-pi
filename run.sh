@@ -70,6 +70,18 @@ _mypy() {
     mypy ${@:2}
 }
 
+_pytest() {
+  local IMAGE_ID=$1
+  docker run \
+    -v $PWD:/tmp/working \
+    -w=/tmp/working \
+    --rm \
+    -it \
+    --name calcpi \
+    ${IMAGE_ID} \
+    pytest ${@:2}
+}
+
 # build
 case $1 in
   'build' )
@@ -93,15 +105,9 @@ case $2 in
   'mypy' )
     _mypy  ${IMAGE_ID} ${@:3}
     exit 0;;
-    'test' )
-        docker run \
-            -v $PWD:/tmp/working \
-            -w=/tmp/working \
-            --rm \
-            -it \
-            --name calcpi \
-            ${IMAGE_ID} \
-            pytest ${@:3};;
+  'test' )
+    _pytest  ${IMAGE_ID} ${@:3}
+    exit 0;;
     * )
         docker run \
             -v $PWD:/tmp/working \
