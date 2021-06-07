@@ -16,6 +16,10 @@ ____USAGE
 
 # main script starts here
 
+if [ $# -lt 2 ]; then
+  print_usage_and_exit
+fi
+
 _python() {
   local IMAGE_ID=$1
   docker run \

@@ -1,17 +1,5 @@
 #! /usr/bin/env bash
 
-# print the usage and exit
-print_usage_and_exit () {
-	cat <<____USAGE 1>&2
-Usage   : ${0##*/}
-
-Execute docker push command.
-____USAGE
-	exit 1
-}
-
-# main script starts here
-
 readonly MODULE=$(cat registry.toml | grep 'module' | awk '{print $3}' | sed -e 's/"//g')
 readonly OWNER=$(cat registry.toml | grep 'owner' | awk '{print $3}' | sed -e 's/"//g')
 readonly IMAGE="${OWNER}/${MODULE}"
