@@ -12,10 +12,11 @@ ____USAGE
 
 # main script starts here
 
-readonly MODULE='calcpi'
-readonly OWNER='gnkm'
+readonly MODULE=$(cat registry.toml | grep 'module' | awk '{print $3}' | sed -e 's/"//g')
+readonly OWNER=$(cat registry.toml | grep 'owner' | awk '{print $3}' | sed -e 's/"//g')
+readonly REGISTRY=$(cat registry.toml | grep 'registry' | awk '{print $3}' | sed -e 's/"//g')
 readonly TAG=$(git describe --tags --always --dirty)
-readonly IMAGE="ghcr.io/${OWNER}/${MODULE}:${TAG}"
+readonly IMAGE="${REGISTRY}/${OWNER}/${MODULE}:${TAG}"
 
 docker build \
   -f docker/Dockerfile \
