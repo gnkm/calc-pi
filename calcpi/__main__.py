@@ -19,57 +19,77 @@ ALGORITHMS: List[str] = [
 
 
 def main():
-    args: argparse.Namespace = _get_args()
+    exec_subcommand()
+    sys.exit()
+
+
+def calc(args: argparse.Namespace) -> None:
     if args.algorithm == 'actual':
         pi: mpmath.mpf = actual.pi(args.accuracy)
     elif args.algorithm == 'gauss_legendre':
-        pi: mpmath.mpf = gauss_legendre.pi(args.accuracy)
+        pi = gauss_legendre.pi(args.accuracy)
     elif args.algorithm == 'polygon':
-        pi: mpmath.mpf = regular_polygon.pi(args.accuracy)
+        pi = regular_polygon.pi(args.accuracy)
 
     formated_pi: str = utils.format_pi(pi, args.accuracy, args.separated)
     utils.display(formated_pi)
 
 
-def _get_args():
-    parser = argparse.ArgumentParser(description='Display Pi')
-    parser.add_argument(
+def error(args):
+    print('error')
+
+
+def exec_subcommand() -> None:
+    global parser
+    parser = argparse.ArgumentParser(description='Calcurate Pi')
+    subparsers = parser.add_subparsers(
+        title='subcommands',
+        description='description',
+        prog='prog',
+
+    )
+
+    # ===== calc subcommand =====
+    parser_calc = subparsers.add_parser('calc')
+    parser_calc.add_argument(
         'algorithm',
         help='Algorithm by which pi is calcurated',
         choices=ALGORITHMS,
     )
-    parser.add_argument(
+    parser_calc.add_argument(
         '--accuracy',
         default=10,
         type=int,
         help='accuracy',
     )
-    parser.add_argument(
+    parser_calc.add_argument(
         '-l',
         '--list',
         help='show algorithms list',
     )
-    parser.add_argument(
+    parser_calc.add_argument(
         '-s',
         '--separated',
         action='store_true',
         help='show separated number',
     )
-    parser.add_argument(
+    parser_calc.add_argument(
         '--grouped_digit',
         default=10,
         type=int,
         help='number of digits to be summarized when displaying',
     )
-    if len(sys.argv) == 1:
-        parser.print_help()
-        sys.exit()
-    elif sys.argv[1] in ['-l', '--list']:
-        utils.display(ALGORITHMS)
-        sys.exit()
+    parser_calc.set_defaults(handler=calc)
+
+    # ===== error subcommand =====
+    parser_eval = subparsers.add_parser('error')
+    parser_eval.set_defaults(handler=error)
 
     args = parser.parse_args()
-    return args
+    if hasattr(args, 'handler'):
+        args.handler(args)
+    else:
+        parser.print_help()
 
 
 if __name__ == '__main__':
