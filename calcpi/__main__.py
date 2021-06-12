@@ -79,8 +79,8 @@ def exec_subcommand() -> None:
     parser_calc.set_defaults(handler=calc)
 
     # ===== error subcommand =====
-    parser_eval = subparsers.add_parser('error')
-    parser_eval.set_defaults(handler=error)
+    parser_error = subparsers.add_parser('error')
+    parser_error.set_defaults(handler=error)
 
     args = parser.parse_args()
     if hasattr(args, 'handler'):
