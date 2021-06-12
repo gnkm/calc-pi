@@ -7,15 +7,6 @@ from mpmath import (
 )
 
 
-def display(v: Any) -> None:
-    """Display var on STDOUT
-
-    Args:
-        v (Any): displayed arg
-    """
-    print(v)
-
-
 def format_pi(pi: mpf, accuracy: int, is_separated: bool = False, grouped_digit: int = 10, sep: str = ' ') -> str:
     """Return formated string.
 

@@ -32,7 +32,7 @@ def calc(args: argparse.Namespace) -> None:
         pi = regular_polygon.pi(args.accuracy)
 
     formated_pi: str = utils.format_pi(pi, args.accuracy, args.separated)
-    utils.display(formated_pi)
+    sys.stdout.write(formated_pi)
 
 
 def error(args):
