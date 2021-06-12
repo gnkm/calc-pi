@@ -43,10 +43,7 @@ def exec_subcommand() -> None:
     global parser
     parser = argparse.ArgumentParser(description='Calcurate Pi')
     subparsers = parser.add_subparsers(
-        title='subcommands',
-        description='description',
-        prog='prog',
-
+        prog='python -m calcpi',
     )
 
     # ===== calc subcommand =====
