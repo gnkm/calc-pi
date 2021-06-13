@@ -34,6 +34,14 @@ def subcommand_error(args: argparse.Namespace) -> None:
 
 
 def calc(accuracy: int) -> mpmath.mpf:
+    """Return Pi.
+
+    Args:
+        accuracy (int): accuracy
+
+    Returns:
+        mpmath.mpf: Pi value
+    """
     if args.algorithm == 'actual':
         pi: mpmath.mpf = actual.pi(accuracy)
     elif args.algorithm == 'gauss_legendre':
