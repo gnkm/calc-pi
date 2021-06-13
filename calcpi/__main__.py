@@ -24,19 +24,24 @@ def main():
 
 
 def subcommand_calc(args: argparse.Namespace) -> None:
-    if args.algorithm == 'actual':
-        pi: mpmath.mpf = actual.pi(args.accuracy)
-    elif args.algorithm == 'gauss_legendre':
-        pi = gauss_legendre.pi(args.accuracy)
-    elif args.algorithm == 'polygon':
-        pi = regular_polygon.pi(args.accuracy)
-
+    pi: mpmath.mpf = calc(args.accuracy)
     formated_pi: str = utils.format_pi(pi, args.accuracy, args.separated)
     sys.stdout.write(formated_pi)
 
 
 def subcommand_error(args: argparse.Namespace) -> None:
     print('error')
+
+
+def calc(accuracy: int) -> mpmath.mpf:
+    if args.algorithm == 'actual':
+        pi: mpmath.mpf = actual.pi(accuracy)
+    elif args.algorithm == 'gauss_legendre':
+        pi = gauss_legendre.pi(accuracy)
+    elif args.algorithm == 'polygon':
+        pi = regular_polygon.pi(accuracy)
+
+    return pi
 
 
 def exec_subcommand() -> None:
