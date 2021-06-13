@@ -80,6 +80,17 @@ def exec_subcommand() -> None:
 
     # ===== error subcommand =====
     parser_error = subparsers.add_parser('error')
+    parser_error.add_argument(
+        'algorithm',
+        help='Algorithm by which pi is calcurated',
+        choices=ALGORITHMS,
+    )
+    parser_error.add_argument(
+        '--accuracy',
+        default=10,
+        type=int,
+        help='accuracy',
+    )
     parser_error.set_defaults(handler=error)
 
     args = parser.parse_args()
