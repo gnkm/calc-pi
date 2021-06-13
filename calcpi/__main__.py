@@ -30,7 +30,9 @@ def subcommand_calc(args: argparse.Namespace) -> None:
 
 
 def subcommand_error(args: argparse.Namespace) -> None:
-    print('error')
+    err: mpmath.mpf = error(args.algorithm, args.accuracy)
+    formated_err: str = utils.format_pi(err, args.accuracy)
+    sys.stdout.write(formated_err)
 
 
 def calc(algorithm: str, accuracy: int) -> mpmath.mpf:
