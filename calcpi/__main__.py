@@ -17,6 +17,9 @@ ALGORITHMS: List[str] = [
     'polygon',
 ]
 
+ACTUAL_PI_DIGIT: int = 1_000
+ERROR_ACCRACY: int = 2
+
 
 def main():
     exec_subcommand()
@@ -53,6 +56,23 @@ def calc(algorithm: str, accuracy: int) -> mpmath.mpf:
         pi = regular_polygon.pi(accuracy)
 
     return pi
+
+
+def error(algorithm: str, accuracy: int) -> mpmath.mpf:
+    """Retrun Logarithm of the error between calculated pi and actural one.
+
+    Args:
+        algorithm (str): algorithm by which pi is calcurated
+        accuracy (int): accuracy of calculated pi
+
+    Returns:
+        mpmath.mpf: logarithms or error of calculated pi and actual one
+    """
+    actual_pi: mpmath.mpf = calc('actual', ACTUAL_PI_DIGIT)
+    compared_pi: mpmath.mpf = calc(algorithm, accuracy)
+    subtraction: mpmath.mpf = mpmath.fsub(actual_pi, compared_pi)
+    mpmath.mp.dps = ERROR_ACCRACY
+    return - mpmath.log10(subtraction)
 
 
 def exec_subcommand() -> None:
