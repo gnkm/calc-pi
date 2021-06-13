@@ -24,7 +24,7 @@ def main():
 
 
 def subcommand_calc(args: argparse.Namespace) -> None:
-    pi: mpmath.mpf = calc(args.accuracy)
+    pi: mpmath.mpf = calc(args.algorithm,  args.accuracy)
     formated_pi: str = utils.format_pi(pi, args.accuracy, args.separated)
     sys.stdout.write(formated_pi)
 
