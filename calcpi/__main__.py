@@ -33,20 +33,21 @@ def subcommand_error(args: argparse.Namespace) -> None:
     print('error')
 
 
-def calc(accuracy: int) -> mpmath.mpf:
+def calc(algorithm: str, accuracy: int) -> mpmath.mpf:
     """Return Pi.
 
     Args:
         accuracy (int): accuracy
+        algorithm (str): algorithm by which pi is calcurated
 
     Returns:
         mpmath.mpf: Pi value
     """
-    if args.algorithm == 'actual':
+    if algorithm == 'actual':
         pi: mpmath.mpf = actual.pi(accuracy)
-    elif args.algorithm == 'gauss_legendre':
+    elif algorithm == 'gauss_legendre':
         pi = gauss_legendre.pi(accuracy)
-    elif args.algorithm == 'polygon':
+    elif algorithm == 'polygon':
         pi = regular_polygon.pi(accuracy)
 
     return pi
