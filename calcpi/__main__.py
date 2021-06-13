@@ -35,7 +35,7 @@ def subcommand_calc(args: argparse.Namespace) -> None:
     sys.stdout.write(formated_pi)
 
 
-def subcommand_error(args):
+def subcommand_error(args: argparse.Namespace) -> None:
     print('error')
 
 
