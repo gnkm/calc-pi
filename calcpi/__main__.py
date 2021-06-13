@@ -23,7 +23,7 @@ def main():
     sys.exit()
 
 
-def calc(args: argparse.Namespace) -> None:
+def subcommand_calc(args: argparse.Namespace) -> None:
     if args.algorithm == 'actual':
         pi: mpmath.mpf = actual.pi(args.accuracy)
     elif args.algorithm == 'gauss_legendre':
@@ -35,7 +35,7 @@ def calc(args: argparse.Namespace) -> None:
     sys.stdout.write(formated_pi)
 
 
-def error(args):
+def subcommand_error(args):
     print('error')
 
 
@@ -76,7 +76,7 @@ def exec_subcommand() -> None:
         type=int,
         help='number of digits to be summarized when displaying',
     )
-    parser_calc.set_defaults(handler=calc)
+    parser_calc.set_defaults(handler=subcommand_calc)
 
     # ===== error subcommand =====
     parser_error = subparsers.add_parser('error')
@@ -91,7 +91,7 @@ def exec_subcommand() -> None:
         type=int,
         help='accuracy',
     )
-    parser_error.set_defaults(handler=error)
+    parser_error.set_defaults(handler=subcommand_error)
 
     args = parser.parse_args()
     if hasattr(args, 'handler'):
