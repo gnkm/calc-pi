@@ -1,5 +1,5 @@
 import textwrap
-from typing import Any, List
+from typing import List
 
 from mpmath import (
     mpf,
