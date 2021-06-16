@@ -17,59 +17,123 @@ ALGORITHMS: List[str] = [
     'polygon',
 ]
 
+ACTUAL_PI_DIGIT: int = 1_000
+ERROR_ACCRACY: int = 2
+
 
 def main():
-    args: argparse.Namespace = _get_args()
-    if args.algorithm == 'actual':
-        pi: mpmath.mpf = actual.pi(args.accuracy)
-    elif args.algorithm == 'gauss_legendre':
-        pi: mpmath.mpf = gauss_legendre.pi(args.accuracy)
-    elif args.algorithm == 'polygon':
-        pi: mpmath.mpf = regular_polygon.pi(args.accuracy)
+    exec_subcommand()
+    sys.exit()
 
+
+def subcommand_calc(args: argparse.Namespace) -> None:
+    pi: mpmath.mpf = calc(args.algorithm,  args.accuracy)
     formated_pi: str = utils.format_pi(pi, args.accuracy, args.separated)
-    utils.display(formated_pi)
+    sys.stdout.write(formated_pi)
 
 
-def _get_args():
-    parser = argparse.ArgumentParser(description='Display Pi')
-    parser.add_argument(
+def subcommand_error(args: argparse.Namespace) -> None:
+    err: mpmath.mpf = error(args.algorithm, args.accuracy)
+    formated_err: str = utils.format_pi(err, args.accuracy)
+    sys.stdout.write(formated_err)
+
+
+def calc(algorithm: str, accuracy: int) -> mpmath.mpf:
+    """Return Pi.
+
+    Args:
+        accuracy (int): accuracy
+        algorithm (str): algorithm by which pi is calcurated
+
+    Returns:
+        mpmath.mpf: Pi value
+    """
+    if algorithm == 'actual':
+        pi: mpmath.mpf = actual.pi(accuracy)
+    elif algorithm == 'gauss_legendre':
+        pi = gauss_legendre.pi(accuracy)
+    elif algorithm == 'polygon':
+        pi = regular_polygon.pi(accuracy)
+
+    return pi
+
+
+def error(algorithm: str, accuracy: int) -> mpmath.mpf:
+    """Retrun Logarithm of the error between calculated pi and actural one.
+
+    Args:
+        algorithm (str): algorithm by which pi is calcurated
+        accuracy (int): accuracy of calculated pi
+
+    Returns:
+        mpmath.mpf: logarithms or error of calculated pi and actual one
+    """
+    actual_pi: mpmath.mpf = calc('actual', ACTUAL_PI_DIGIT)
+    compared_pi: mpmath.mpf = calc(algorithm, accuracy)
+    subtraction: mpmath.mpf = mpmath.fsub(actual_pi, compared_pi)
+    mpmath.mp.dps = ERROR_ACCRACY
+    return - mpmath.log10(subtraction)
+
+
+def exec_subcommand() -> None:
+    global parser
+    parser = argparse.ArgumentParser(description='Calcurate Pi')
+    subparsers = parser.add_subparsers(
+        prog='python -m calcpi',
+    )
+
+    # ===== calc subcommand =====
+    parser_calc = subparsers.add_parser('calc')
+    parser_calc.add_argument(
         'algorithm',
         help='Algorithm by which pi is calcurated',
         choices=ALGORITHMS,
     )
-    parser.add_argument(
+    parser_calc.add_argument(
         '--accuracy',
         default=10,
         type=int,
         help='accuracy',
     )
-    parser.add_argument(
+    parser_calc.add_argument(
         '-l',
         '--list',
         help='show algorithms list',
     )
-    parser.add_argument(
+    parser_calc.add_argument(
         '-s',
         '--separated',
         action='store_true',
         help='show separated number',
     )
-    parser.add_argument(
+    parser_calc.add_argument(
         '--grouped_digit',
         default=10,
         type=int,
         help='number of digits to be summarized when displaying',
     )
-    if len(sys.argv) == 1:
-        parser.print_help()
-        sys.exit()
-    elif sys.argv[1] in ['-l', '--list']:
-        utils.display(ALGORITHMS)
-        sys.exit()
+    parser_calc.set_defaults(handler=subcommand_calc)
+
+    # ===== error subcommand =====
+    parser_error = subparsers.add_parser('error')
+    parser_error.add_argument(
+        'algorithm',
+        help='Algorithm by which pi is calcurated',
+        choices=ALGORITHMS,
+    )
+    parser_error.add_argument(
+        '--accuracy',
+        default=10,
+        type=int,
+        help='accuracy',
+    )
+    parser_error.set_defaults(handler=subcommand_error)
 
     args = parser.parse_args()
-    return args
+    if hasattr(args, 'handler'):
+        args.handler(args)
+    else:
+        parser.print_help()
 
 
 if __name__ == '__main__':

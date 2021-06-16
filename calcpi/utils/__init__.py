@@ -1,19 +1,10 @@
 import textwrap
-from typing import Any, List
+from typing import List
 
 from mpmath import (
     mpf,
     nstr,
 )
-
-
-def display(v: Any) -> None:
-    """Display var on STDOUT
-
-    Args:
-        v (Any): displayed arg
-    """
-    print(v)
 
 
 def format_pi(pi: mpf, accuracy: int, is_separated: bool = False, grouped_digit: int = 10, sep: str = ' ') -> str:
