@@ -48,13 +48,7 @@ def calc(algorithm: str, accuracy: int) -> mpmath.mpf:
     Returns:
         mpmath.mpf: Pi value
     """
-    if algorithm == 'actual':
-        pi: mpmath.mpf = actual.pi(accuracy)
-    elif algorithm == 'gauss_legendre':
-        pi = gauss_legendre.pi(accuracy)
-    elif algorithm == 'polygon':
-        pi = regular_polygon.pi(accuracy)
-
+    pi: mpmath.mpf = globals()[algorithm].pi(accuracy)
     return pi
 
 
