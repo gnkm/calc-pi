@@ -76,7 +76,6 @@ def error(algorithm: str, accuracy: int) -> mpmath.mpf:
 
 
 def exec_subcommand() -> None:
-    global parser
     parser = argparse.ArgumentParser(description='Calcurate Pi')
     subparsers = parser.add_subparsers(
         prog='python -m calcpi',
