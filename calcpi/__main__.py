@@ -7,6 +7,7 @@ import mpmath
 from calcpi import (
     actual,
     gauss_legendre,
+    monte_carlo,
     regular_polygon,
     utils,
 )
@@ -14,6 +15,7 @@ from calcpi import (
 ALGORITHMS: List[str] = [
     'actual',
     'gauss_legendre',
+    'monte_carlo',
     'polygon',
 ]
 
