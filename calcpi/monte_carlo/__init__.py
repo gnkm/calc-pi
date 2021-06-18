@@ -6,12 +6,12 @@ from mpmath import (
 )
 import numpy as np
 
-from calcpi.debug import print_prettify
+from calcpi import print_prettify  # noqa: F401  # pylint: disable=unused-import
 
 
-def pi(accuracy: int) -> float:
+def pi(accuracy: int) -> float:  # pylint: disable=invalid-name
     mp.dps = accuracy
-    points = np.random.uniform(size=(accuracy,2))
+    points = np.random.uniform(size=(accuracy, 2))
     point_count = points.shape[0]
     distances = np.power(points[:, 0], 2) + np.power(points[:, 1], 2)
     inner_circle_point_count = np.count_nonzero(distances <= 1)
