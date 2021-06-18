@@ -1,4 +1,4 @@
-from calcpi import gauss_legendre
+from calcpi.algorithms import gauss_legendre
 
 
 class TestGaussLegendrePi:

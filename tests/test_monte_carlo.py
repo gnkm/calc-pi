@@ -1,4 +1,4 @@
-from calcpi import monte_carlo
+from calcpi.algorithms import monte_carlo
 
 
 class TestMonteCarloPi:

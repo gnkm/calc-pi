@@ -4,10 +4,10 @@ from typing import List
 
 import mpmath
 
-from calcpi import actual  # noqa: F401  # pylint: disable=unused-import
-from calcpi import gauss_legendre  # noqa: F401  # pylint: disable=unused-import
-from calcpi import monte_carlo  # noqa: F401  # pylint: disable=unused-import
-from calcpi import regular_polygon  # noqa: F401  # pylint: disable=unused-import
+from calcpi.algorithms import actual  # noqa: F401  # pylint: disable=unused-import
+from calcpi.algorithms import gauss_legendre  # noqa: F401  # pylint: disable=unused-import
+from calcpi.algorithms import monte_carlo  # noqa: F401  # pylint: disable=unused-import
+from calcpi.algorithms import regular_polygon as polygon  # noqa: F401  # pylint: disable=unused-import
 
 from calcpi import print_prettify  # noqa: F401  # pylint: disable=unused-import
 from calcpi import utils
