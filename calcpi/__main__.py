@@ -35,8 +35,8 @@ def subcommand_calc(args: argparse.Namespace) -> None:
     sys.stdout.write(formated_pi)
 
 
-def subcommand_error(args: argparse.Namespace) -> None:
-    err: mpmath.mpf = error(args.algorithm, args.accuracy)
+def subcommand_evaluate(args: argparse.Namespace) -> None:
+    err: mpmath.mpf = evaluate(args.algorithm, args.accuracy)
     formated_err: str = utils.format_pi(err, args.accuracy)
     sys.stdout.write(formated_err)
 
@@ -55,7 +55,7 @@ def calc(algorithm: str, accuracy: int) -> mpmath.mpf:
     return pi
 
 
-def error(algorithm: str, accuracy: int) -> mpmath.mpf:
+def evaluate(algorithm: str, accuracy: int) -> mpmath.mpf:
     """Retrun Logarithm of the error between calculated pi and actural one.
 
     Args:
@@ -110,20 +110,20 @@ def exec_subcommand() -> None:
     )
     parser_calc.set_defaults(handler=subcommand_calc)
 
-    # ===== error subcommand =====
-    parser_error = subparsers.add_parser('error')
-    parser_error.add_argument(
+    # ===== evaluate subcommand =====
+    parser_evaluate = subparsers.add_parser('evaluate')
+    parser_evaluate.add_argument(
         'algorithm',
         help='Algorithm by which pi is calcurated',
         choices=ALGORITHMS,
     )
-    parser_error.add_argument(
+    parser_evaluate.add_argument(
         '--accuracy',
         default=10,
         type=int,
         help='accuracy',
     )
-    parser_error.set_defaults(handler=subcommand_error)
+    parser_evaluate.set_defaults(handler=subcommand_evaluate)
 
     args = parser.parse_args()
     if hasattr(args, 'handler'):
