@@ -1,4 +1,4 @@
-from calcpi import regular_polygon
+from calcpi.algorithms import regular_polygon
 
 
 class TestRegularPolygonPi:
