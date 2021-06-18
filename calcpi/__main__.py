@@ -4,13 +4,14 @@ from typing import List
 
 import mpmath
 
-from calcpi import (
-    actual,
-    gauss_legendre,
-    monte_carlo,
-    regular_polygon,
-    utils,
-)
+from calcpi import actual  # noqa: F401  # pylint: disable=unused-import
+from calcpi import gauss_legendre  # noqa: F401  # pylint: disable=unused-import
+from calcpi import monte_carlo  # noqa: F401  # pylint: disable=unused-import
+from calcpi import regular_polygon  # noqa: F401  # pylint: disable=unused-import
+
+from calcpi import print_prettify  # noqa: F401  # pylint: disable=unused-import
+from calcpi import utils
+
 
 ALGORITHMS: List[str] = [
     'actual',
@@ -29,7 +30,7 @@ def main():
 
 
 def subcommand_calc(args: argparse.Namespace) -> None:
-    pi: mpmath.mpf = calc(args.algorithm,  args.accuracy)
+    pi: mpmath.mpf = calc(args.algorithm,  args.accuracy)  # pylint: disable=invalid-name
     formated_pi: str = utils.format_pi(pi, args.accuracy, args.separated)
     sys.stdout.write(formated_pi)
 
@@ -50,7 +51,7 @@ def calc(algorithm: str, accuracy: int) -> mpmath.mpf:
     Returns:
         mpmath.mpf: Pi value
     """
-    pi: mpmath.mpf = globals()[algorithm].pi(accuracy)
+    pi: mpmath.mpf = globals()[algorithm].pi(accuracy)  # pylint: disable=invalid-name
     return pi
 
 
