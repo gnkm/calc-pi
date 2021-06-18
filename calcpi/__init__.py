@@ -1,1 +1,1 @@
-from calcpi.debug import print_prettify
+from calcpi.debug import print_prettify  # noqa: F401  # pylint: disable=unused-import
