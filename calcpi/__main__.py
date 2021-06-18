@@ -4,16 +4,19 @@ from typing import List
 
 import mpmath
 
-from calcpi import (
-    actual,
-    gauss_legendre,
-    regular_polygon,
-    utils,
-)
+from calcpi import actual  # noqa: F401  # pylint: disable=unused-import
+from calcpi import gauss_legendre  # noqa: F401  # pylint: disable=unused-import
+from calcpi import monte_carlo  # noqa: F401  # pylint: disable=unused-import
+from calcpi import regular_polygon  # noqa: F401  # pylint: disable=unused-import
+
+from calcpi import print_prettify  # noqa: F401  # pylint: disable=unused-import
+from calcpi import utils
+
 
 ALGORITHMS: List[str] = [
     'actual',
     'gauss_legendre',
+    'monte_carlo',
     'polygon',
 ]
 
@@ -27,7 +30,7 @@ def main():
 
 
 def subcommand_calc(args: argparse.Namespace) -> None:
-    pi: mpmath.mpf = calc(args.algorithm,  args.accuracy)
+    pi: mpmath.mpf = calc(args.algorithm,  args.accuracy)  # pylint: disable=invalid-name
     formated_pi: str = utils.format_pi(pi, args.accuracy, args.separated)
     sys.stdout.write(formated_pi)
 
@@ -48,13 +51,7 @@ def calc(algorithm: str, accuracy: int) -> mpmath.mpf:
     Returns:
         mpmath.mpf: Pi value
     """
-    if algorithm == 'actual':
-        pi: mpmath.mpf = actual.pi(accuracy)
-    elif algorithm == 'gauss_legendre':
-        pi = gauss_legendre.pi(accuracy)
-    elif algorithm == 'polygon':
-        pi = regular_polygon.pi(accuracy)
-
+    pi: mpmath.mpf = globals()[algorithm].pi(accuracy)  # pylint: disable=invalid-name
     return pi
 
 
@@ -76,7 +73,6 @@ def error(algorithm: str, accuracy: int) -> mpmath.mpf:
 
 
 def exec_subcommand() -> None:
-    global parser
     parser = argparse.ArgumentParser(description='Calcurate Pi')
     subparsers = parser.add_subparsers(
         prog='python -m calcpi',
