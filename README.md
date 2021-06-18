@@ -29,7 +29,7 @@ bash run/run.sh $(docker images | grep calcpi | awk '{print $3}' | head -1) py -
 Calculate Pi.
 
 ```
-bash run/run.sh $(docker images | grep calcpi | awk '{print $3}' | head -1) py -m calcpi gauss_legendre --accuracy 100 -s
+bash run/run.sh $(docker images | grep calcpi | awk '{print $3}' | head -1) py -m calcpi calc gauss_legendre --accuracy 100 -s
 ```
 
 Evaluate each algorithm.
