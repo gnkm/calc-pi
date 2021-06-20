@@ -9,7 +9,7 @@ from mpmath import (
 )
 
 
-def pi(accuracy: int) -> float:
+def pi(accuracy: int) -> float:  # pylint: disable=invalid-name
     mp.dps = max(5, round(math.sqrt(accuracy)))
 
     return 1 / 2 * accuracy * sqrt(
