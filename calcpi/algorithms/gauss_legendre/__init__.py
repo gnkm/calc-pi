@@ -4,12 +4,14 @@ cf. https://en.wikipedia.org/wiki/Gauss%E2%80%93Legendre_algorithm
 """
 
 import math
+from typing import Tuple
+
 from mpmath import (
     mp,
     mpf,
     sqrt,
 )
-from typing import Any, Tuple
+
 
 # initial values
 INIT_A: float = 1
@@ -18,10 +20,18 @@ INIT_T: float = 1 / 4
 INIT_P: float = 1
 
 
-def pi(accuracy: int) -> float:
+def pi(accuracy: int) -> mpf:  # pylint: disable=invalid-name
+    """Return pi.
+
+    Args:
+        accuracy (int): accuracy
+
+    Returns:
+        mpf: Pi
+    """
     mp.dps = accuracy
     iter_num: int = int(math.log2(accuracy))
-    a, b, t, _, _ = _variables(
+    a, b, t, _, _ = _variables(  # pylint: disable=invalid-name
         mpf(INIT_A),
         mpf(INIT_B),
         mpf(INIT_T),
@@ -31,7 +41,7 @@ def pi(accuracy: int) -> float:
     return (a + b) ** 2 / (4 * t)
 
 
-def _variables(a_n: mpf, b_n: mpf, t_n: mpf, p_n: mpf, iter_num: int) -> Tuple[Any, Any, Any, Any, int]:
+def _variables(a_n: mpf, b_n: mpf, t_n: mpf, p_n: mpf, iter_num: int) -> Tuple[mpf, mpf, mpf, mpf, int]:  # pylint: disable=line-too-long
     if iter_num <= 0:
         return a_n, b_n, t_n, p_n, iter_num
 
