@@ -4,7 +4,7 @@
 import mpmath
 
 
-def pi(accuracy: int) -> mpmath.mpf:
+def pi(accuracy: int) -> mpmath.mpf:  # pylint: disable=invalid-name
     """Return actual Pi value.
 
     Args:
