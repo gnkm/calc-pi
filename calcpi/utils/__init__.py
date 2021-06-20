@@ -1,3 +1,7 @@
+"""Utility functions.
+"""
+
+
 import textwrap
 from typing import List
 
@@ -7,7 +11,7 @@ from mpmath import (
 )
 
 
-def format_pi(pi: mpf, accuracy: int, is_separated: bool = False, grouped_digit: int = 10, sep: str = ' ') -> str:
+def format_pi(pi: mpf, accuracy: int, is_separated: bool = False, grouped_digit: int = 10, sep: str = ' ') -> str:  # pylint: disable=invalid-name,line-too-long
     """Return formated string.
 
     Args:
@@ -20,7 +24,7 @@ def format_pi(pi: mpf, accuracy: int, is_separated: bool = False, grouped_digit:
     Returns:
         str: formated string
     """
-    pi_str: str = nstr(pi, n=accuracy)
+    pi_str: str = nstr(pi, n=accuracy)  # pylint: disable=invalid-name
 
     if not is_separated:
         return pi_str
