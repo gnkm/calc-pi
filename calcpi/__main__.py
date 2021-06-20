@@ -1,3 +1,5 @@
+"""Main script."""
+
 import argparse
 import sys
 from typing import List
@@ -25,17 +27,20 @@ ERROR_ACCRACY: int = 2
 
 
 def main():
+    # pylint: disable=missing-function-docstring
     exec_subcommand()
     sys.exit()
 
 
 def subcommand_calc(args: argparse.Namespace) -> None:
+    # pylint: disable=missing-function-docstring
     pi: mpmath.mpf = calc(args.algorithm,  args.accuracy)  # pylint: disable=invalid-name
     formated_pi: str = utils.format_pi(pi, args.accuracy, args.separated)
     sys.stdout.write(formated_pi)
 
 
 def subcommand_evaluate(args: argparse.Namespace) -> None:
+    # pylint: disable=missing-function-docstring
     err: mpmath.mpf = evaluate(args.algorithm, args.accuracy)
     formated_err: str = utils.format_pi(err, args.accuracy)
     sys.stdout.write(formated_err)
@@ -73,6 +78,8 @@ def evaluate(algorithm: str, accuracy: int) -> mpmath.mpf:
 
 
 def exec_subcommand() -> None:
+    """Define command line args.
+    """
     parser = argparse.ArgumentParser(description='Calcurate Pi')
     subparsers = parser.add_subparsers(
         prog='python -m calcpi',
