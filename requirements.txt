@@ -1,5 +1,6 @@
 bandit==1.7.0
 flake8==3.9.1
+icecream==2.1.0
 mpmath==1.2.1
 mypy==0.812
 numpy==1.20.0
