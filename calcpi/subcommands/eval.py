@@ -22,7 +22,15 @@ ACTUAL_PI_DIGIT: int = 1_000
 ERROR_ACCRACY: int = 2
 
 
-def define_args(subparsers: argparse._SubParsersAction) -> argparse._SubParsersAction:
+def define_args(subparsers):
+    """Define subcommand args.
+
+    Args:
+        subparsers not set args
+
+    Returns:
+        subparsers set args
+    """
     parser = subparsers.add_parser(SUBCOMMAND_NAME, aliases=ALIASES)
     parser.add_argument(
         'algorithm',
