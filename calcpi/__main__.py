@@ -2,25 +2,12 @@
 
 import argparse
 import sys
-from typing import List
-
-from calcpi.algorithms import actual  # noqa: F401  # pylint: disable=unused-import
-from calcpi.algorithms import gauss_legendre  # noqa: F401  # pylint: disable=unused-import
-from calcpi.algorithms import monte_carlo  # noqa: F401  # pylint: disable=unused-import
-from calcpi.algorithms import regular_polygon as polygon  # noqa: F401  # pylint: disable=unused-import
 
 from calcpi.subcommands import calc as sc_calc
 from calcpi.subcommands import eval as sc_eval
 
 from calcpi import print_prettify  # noqa: F401  # pylint: disable=unused-import
 
-
-ALGORITHMS: List[str] = [
-    'actual',
-    'gauss_legendre',
-    'monte_carlo',
-    'polygon',
-]
 
 ACTUAL_PI_DIGIT: int = 1_000
 ERROR_ACCRACY: int = 2
