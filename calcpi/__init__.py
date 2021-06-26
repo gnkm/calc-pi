@@ -3,7 +3,7 @@
 
 from typing import List
 
-from icecream import install
+from icecream import install  # type: ignore
 
 from calcpi.debug import print_prettify  # noqa: F401  # pylint: disable=unused-import
 
