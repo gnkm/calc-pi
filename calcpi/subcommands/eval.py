@@ -38,7 +38,7 @@ def define_args(subparsers):
 
     parser.set_defaults(handler=subcommand)
 
-    return parser
+    return subparsers
 
 
 def evaluate(algorithm: str, accuracy: int) -> mpmath.mpf:
