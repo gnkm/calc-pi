@@ -13,22 +13,18 @@ from calcpi.algorithms import gauss_legendre  # noqa: F401  # pylint: disable=un
 from calcpi.algorithms import monte_carlo  # noqa: F401  # pylint: disable=unused-import
 from calcpi.algorithms import regular_polygon as polygon  # noqa: F401  # pylint: disable=unused-import
 
+from calcpi import ALGORITHMS
+
 from calcpi import print_prettify  # noqa: F401  # pylint: disable=unused-import
 from calcpi import utils
 
 
 SUBCOMMAND_NAME: str = 'calc'
-
-ALGORITHMS: List[str] = [
-    'actual',
-    'gauss_legendre',
-    'monte_carlo',
-    'polygon',
-]
+ALIASES: List[str] = []
 
 
 def define_args(subparsers):
-    parser = subparsers.add_parser(SUBCOMMAND_NAME)
+    parser = subparsers.add_parser(SUBCOMMAND_NAME, aliases=ALIASES)
     parser.add_argument(
         'algorithm',
         help='Algorithm by which pi is calcurated',
@@ -58,6 +54,8 @@ def define_args(subparsers):
         help='number of digits to be summarized when displaying',
     )
     parser.set_defaults(handler=subcommand)
+
+    return subparsers
 
 
 def calc(algorithm: str, accuracy: int) -> mpmath.mpf:
